@@ -1,7 +1,7 @@
 {
-  "name": "@uongsuadaubung/tentap-editor",
+  "name": "@uongsuadaubung/text-editor",
   "version": "0.5.13",
-  "description": "React Native Rich Text Editor",
+  "description": "Test Text Editor",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -50,28 +50,19 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
-    "release": "release-it"
+    "release": "release-it --no-git"
   },
-  "keywords": [
-    "rich text",
-    "rich text editor",
-    "editor",
-    "tiptap react-native",
-    "prosemirror react-native",
-    "react-native",
-    "ios",
-    "android"
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10play/10Tap-Editor.git"
+    "url": "git+https://uongsuadaubung/10tap-editor.git"
   },
-  "author": "Amir Angel <36531255+17Amir17@users.noreply.github.com> (https://www.10play.dev)",
+  "author": "uongsuadaubung",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/10play/10Tap-Editor/issues"
+    "url": "https://uongsuadaubung/10tap-editor/issues"
   },
-  "homepage": "https://github.com/10play/10Tap-Editor#readme",
+  "homepage": "https://uongsuadaubung/10tap-editor#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

@@ -19,7 +19,7 @@ import {
   useBridgeState,
   TenTapStartKit,
   CoreBridge,
-} from '@10play/tentap-editor';
+} from '../../../src/index';
 import { Images } from '../../../src/assets';
 import { customFont } from './font';
 
