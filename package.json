@@ -60,9 +60,9 @@
   "author": "uongsuadaubung",
   "license": "MIT",
   "bugs": {
-    "url": "https://uongsuadaubung/10tap-editor/issues"
+    "url": "https://github.com/uongsuadaubung/10tap-editor/issues"
   },
-  "homepage": "https://uongsuadaubung/10tap-editor#readme",
+  "homepage": "https://github.com/uongsuadaubung/10tap-editor#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
