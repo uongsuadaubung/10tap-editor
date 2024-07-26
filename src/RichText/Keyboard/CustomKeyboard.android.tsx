@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TenTapView, useKeyboard } from '../../index';
+import { TenTapView, useKeyboard } from '@uongsuadaubung/text-editor';
 import type { CustomKeyboardExtension } from './CustomKeyboardExtension';
 import { isFabric } from '../../utils/misc';
 
