@@ -9,6 +9,7 @@ import {
 import { useBridgeState } from '../useBridgeState';
 import React from 'react';
 import {
+  AI_ITEMS,
   DEFAULT_TOOLBAR_ITEMS,
   HEADING_ITEMS,
   type ToolbarItem,
@@ -29,6 +30,7 @@ export enum ToolbarContext {
   Main,
   Link,
   Heading,
+  AI,
 }
 
 export function Toolbar({
@@ -53,11 +55,19 @@ export function Toolbar({
   };
 
   switch (toolbarContext) {
+    case ToolbarContext.AI:
     case ToolbarContext.Main:
-    case ToolbarContext.Heading:
+    case ToolbarContext.Heading: {
+      const data =
+        toolbarContext === ToolbarContext.Main
+          ? items
+          : toolbarContext === ToolbarContext.Heading
+          ? HEADING_ITEMS
+          : AI_ITEMS;
+
       return (
         <FlatList
-          data={toolbarContext === ToolbarContext.Main ? items : HEADING_ITEMS}
+          data={data}
           style={[
             editor.theme.toolbar.toolbarBody,
             hideToolbar ? editor.theme.toolbar.hidden : undefined,
@@ -100,6 +110,7 @@ export function Toolbar({
           horizontal
         />
       );
+    }
     case ToolbarContext.Link:
       return (
         <EditLinkBar

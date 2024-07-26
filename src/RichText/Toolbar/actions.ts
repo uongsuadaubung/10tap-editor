@@ -1,8 +1,8 @@
 import { Platform } from 'react-native';
 import { Images } from '../../assets';
-import { EditorActionType } from '../../types/Actions';
+import { EditorActionType } from '../../types';
 import type { EditorBridge } from '../../types';
-import { type BridgeState } from '../../types/EditorBridge';
+import { type BridgeState } from '../../types';
 import { ToolbarContext } from './Toolbar';
 
 export const ToolbarItems = {
@@ -248,5 +248,26 @@ export const HEADING_ITEMS: ToolbarItem[] = [
     active: ({ editorState }) => editorState.headingLevel === 6,
     disabled: ({ editorState }) => !editorState.canToggleHeading,
     image: () => Images.h6,
+  },
+];
+
+export const AI_ITEMS: ToolbarItem[] = [
+  {
+    onPress:
+      ({ setToolbarContext }) =>
+      () =>
+        setToolbarContext(ToolbarContext.Main),
+    active: () => false,
+    disabled: () => false,
+    image: () => Images.close,
+  },
+  {
+    onPress:
+      ({ editor }) =>
+      () =>
+        editor.toggleHeading(1),
+    active: ({ editorState }) => editorState.headingLevel === 1,
+    disabled: ({ editorState }) => !editorState.canToggleHeading,
+    image: () => Images.h1,
   },
 ];
