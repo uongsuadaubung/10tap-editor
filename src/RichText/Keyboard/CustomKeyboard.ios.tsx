@@ -1,8 +1,8 @@
 import React from 'react';
 import { processColor, type ColorValue } from 'react-native';
-import { TenTapView, useKeyboard } from '@uongsuadaubung/text-editor';
+import { TenTapView, useKeyboard } from '../../index';
 import { useRefHandle } from '../../utils/useRefHandle';
-import type { CustomKeyboardExtension } from './CustomKeyboardExtension';
+import type { CustomKeyboardExtension } from '@10play/tentap-editor';
 export interface CustomKeyboardIOSProps {
   rootRef: React.RefObject<any>;
   onKeyboardHideAndroid?: () => void;
