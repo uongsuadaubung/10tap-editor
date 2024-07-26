@@ -33,6 +33,15 @@ export interface ToolbarItem {
 export const DEFAULT_TOOLBAR_ITEMS: ToolbarItem[] = [
   {
     onPress:
+      ({ setToolbarContext }) =>
+      () =>
+        setToolbarContext(ToolbarContext.AI),
+    active: () => false,
+    disabled: ({ editorState }) => !editorState.canToggleHeading,
+    image: () => Images.Aa,
+  },
+  {
+    onPress:
       ({ editor }) =>
       () =>
         editor.toggleBold(),
