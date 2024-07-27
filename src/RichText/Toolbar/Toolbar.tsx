@@ -105,7 +105,9 @@ export function Toolbar({
                   ]}
                   resizeMode="contain"
                 />
-                <Text style={[editor.theme.toolbar.textTitle]}> {title} </Text>
+                {title ? (
+                  <Text style={[editor.theme.toolbar.textTitle]}>{title}</Text>
+                ) : null}
               </View>
             </TouchableOpacity>
           );
