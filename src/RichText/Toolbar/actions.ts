@@ -280,3 +280,28 @@ export const AI_ITEMS: ToolbarItem[] = [
     image: () => Images.h1,
   },
 ];
+
+export const actions = {
+  Bold: DEFAULT_TOOLBAR_ITEMS[0]!,
+  Italic: DEFAULT_TOOLBAR_ITEMS[1]!,
+  Link: DEFAULT_TOOLBAR_ITEMS[2]!,
+  TaskList: DEFAULT_TOOLBAR_ITEMS[3]!,
+  Heading: DEFAULT_TOOLBAR_ITEMS[4]!,
+  Code: DEFAULT_TOOLBAR_ITEMS[5]!,
+  Underline: DEFAULT_TOOLBAR_ITEMS[6]!,
+  Strikethrough: DEFAULT_TOOLBAR_ITEMS[7]!,
+  Quote: DEFAULT_TOOLBAR_ITEMS[8]!,
+  OrderedList: DEFAULT_TOOLBAR_ITEMS[9]!,
+  BulletList: DEFAULT_TOOLBAR_ITEMS[10]!,
+  Sink: DEFAULT_TOOLBAR_ITEMS[11]!,
+  Lift: DEFAULT_TOOLBAR_ITEMS[12]!,
+  Undo: DEFAULT_TOOLBAR_ITEMS[13]!,
+  Redo: DEFAULT_TOOLBAR_ITEMS[14]!,
+
+  H1: HEADING_ITEMS[0]!,
+  H2: HEADING_ITEMS[1]!,
+  H3: HEADING_ITEMS[2]!,
+  H4: HEADING_ITEMS[3]!,
+  H5: HEADING_ITEMS[4]!,
+  H6: HEADING_ITEMS[5]!,
+};
