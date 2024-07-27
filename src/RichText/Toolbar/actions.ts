@@ -19,6 +19,12 @@ export enum ToolbarContext {
   Heading,
   AI,
   Close,
+  Image,
+  Video,
+  Record,
+  Color,
+  Font,
+  Highlight,
 }
 type ArgsToolbarCB = {
   editor: EditorBridge;

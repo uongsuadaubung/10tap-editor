@@ -37,7 +37,7 @@ export function Toolbar({
   const [toolbarContext, setToolbarContext] = React.useState<ToolbarContext>(
     ToolbarContext.Main
   );
-
+  const flatListRef = React.useRef<FlatList<ToolbarItem>>(null);
   const hideToolbar =
     hidden === undefined ? !isKeyboardUp || !editorState.isFocused : hidden;
 
@@ -47,17 +47,30 @@ export function Toolbar({
     setToolbarContext,
     toolbarContext,
   };
+  const scrollToTop = () => {
+    if (!flatListRef.current) {
+      return;
+    }
+    setTimeout(() => {
+      flatListRef.current!.scrollToIndex({ index: 0, animated: true });
+    }, 100);
+  };
   const data = useMemo<ToolbarItem[]>(() => {
     const filteredItems = items.filter((i) => i.context === toolbarContext);
+    scrollToTop();
     if (toolbarContext === ToolbarContext.Main) {
       return filteredItems;
     }
     return [actions.Close, ...filteredItems];
   }, [items, toolbarContext]);
+  // useEffect(() => {
+  //   scrollToTop();
+  // }, [data]);
 
   if (toolbarContext !== ToolbarContext.Link) {
     return (
       <FlatList
+        ref={flatListRef}
         data={data}
         style={[
           editor.theme.toolbar.toolbarBody,
