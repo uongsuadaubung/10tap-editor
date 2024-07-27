@@ -19,6 +19,7 @@ export type ToolbarTheme = {
   iconDisabled: StyleProp<ImageStyle>;
   iconActive: StyleProp<ImageStyle>;
   icon: StyleProp<ImageStyle>;
+  textTitle: StyleProp<ImageStyle>;
   iconWrapper: StyleProp<ViewStyle>;
   iconWrapperDisabled: StyleProp<ViewStyle>;
   iconWrapperActive: StyleProp<ViewStyle>;

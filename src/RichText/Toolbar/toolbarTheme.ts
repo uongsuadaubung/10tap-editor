@@ -1,6 +1,9 @@
 import type { ToolbarTheme } from '../../types';
 
 export const defaultToolbarTheme: ToolbarTheme = {
+  textTitle: {
+    marginLeft: 5,
+  },
   toolbarBody: {
     flex: 1,
     borderTopWidth: 0.5,

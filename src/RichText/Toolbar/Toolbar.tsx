@@ -5,13 +5,14 @@ import {
   StyleSheet,
   Platform,
   View,
+  Text,
 } from 'react-native';
 import { useBridgeState } from '../useBridgeState';
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
-  AI_ITEMS,
-  DEFAULT_TOOLBAR_ITEMS,
-  HEADING_ITEMS,
+  actions,
+  ALL_TOOLBAR_ITEMS,
+  ToolbarContext,
   type ToolbarItem,
 } from './actions';
 import { EditLinkBar } from './EditLinkBar';
@@ -26,17 +27,10 @@ interface ToolbarProps {
 
 export const toolbarStyles = StyleSheet.create({});
 
-export enum ToolbarContext {
-  Main,
-  Link,
-  Heading,
-  AI,
-}
-
 export function Toolbar({
   editor,
   hidden = undefined,
-  items = DEFAULT_TOOLBAR_ITEMS,
+  items = ALL_TOOLBAR_ITEMS,
 }: ToolbarProps) {
   const editorState = useBridgeState(editor);
   const { isKeyboardUp } = useKeyboard();
@@ -53,89 +47,84 @@ export function Toolbar({
     setToolbarContext,
     toolbarContext,
   };
+  const data = useMemo<ToolbarItem[]>(() => {
+    const filteredItems = items.filter((i) => i.context === toolbarContext);
+    if (toolbarContext === ToolbarContext.Main) {
+      return filteredItems;
+    }
+    return [actions.Close, ...filteredItems];
+  }, [items, toolbarContext]);
 
-  switch (toolbarContext) {
-    case ToolbarContext.AI:
-    case ToolbarContext.Main:
-    case ToolbarContext.Heading: {
-      const data =
-        toolbarContext === ToolbarContext.Main
-          ? items
-          : toolbarContext === ToolbarContext.Heading
-          ? HEADING_ITEMS
-          : AI_ITEMS;
-
-      return (
-        <FlatList
-          data={data}
-          style={[
-            editor.theme.toolbar.toolbarBody,
-            hideToolbar ? editor.theme.toolbar.hidden : undefined,
-          ]}
-          renderItem={({ item: { onPress, disabled, active, image } }) => {
-            return (
-              <TouchableOpacity
-                onPress={onPress(args)}
-                disabled={disabled(args)}
-                style={[editor.theme.toolbar.toolbarButton]}
+  if (toolbarContext !== ToolbarContext.Link) {
+    return (
+      <FlatList
+        data={data}
+        style={[
+          editor.theme.toolbar.toolbarBody,
+          hideToolbar ? editor.theme.toolbar.hidden : undefined,
+        ]}
+        renderItem={({ item: { onPress, disabled, active, image, title } }) => {
+          return (
+            <TouchableOpacity
+              onPress={onPress(args)}
+              disabled={disabled(args)}
+              style={[editor.theme.toolbar.toolbarButton]}
+            >
+              <View
+                style={[
+                  editor.theme.toolbar.iconWrapper,
+                  active(args)
+                    ? editor.theme.toolbar.iconWrapperActive
+                    : undefined,
+                  disabled(args)
+                    ? editor.theme.toolbar.iconWrapperDisabled
+                    : undefined,
+                ]}
               >
-                <View
+                <Image
+                  source={image(args)}
                   style={[
-                    editor.theme.toolbar.iconWrapper,
-                    active(args)
-                      ? editor.theme.toolbar.iconWrapperActive
-                      : undefined,
+                    editor.theme.toolbar.icon,
+                    active(args) ? editor.theme.toolbar.iconActive : undefined,
                     disabled(args)
-                      ? editor.theme.toolbar.iconWrapperDisabled
+                      ? editor.theme.toolbar.iconDisabled
                       : undefined,
                   ]}
-                >
-                  <Image
-                    source={image(args)}
-                    style={[
-                      editor.theme.toolbar.icon,
-                      active(args)
-                        ? editor.theme.toolbar.iconActive
-                        : undefined,
-                      disabled(args)
-                        ? editor.theme.toolbar.iconDisabled
-                        : undefined,
-                    ]}
-                    resizeMode="contain"
-                  />
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-          horizontal
-        />
-      );
-    }
-    case ToolbarContext.Link:
-      return (
-        <EditLinkBar
-          theme={editor.theme}
-          initialLink={editorState.activeLink}
-          onBlur={() => setToolbarContext(ToolbarContext.Main)}
-          onLinkIconClick={() => {
-            setToolbarContext(ToolbarContext.Main);
-            editor.focus();
-          }}
-          onEditLink={(link) => {
-            editor.setLink(link);
-            editor.focus();
+                  resizeMode="contain"
+                />
+                <Text style={[editor.theme.toolbar.textTitle]}> {title} </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+        horizontal
+      />
+    );
+  } else {
+    return (
+      <EditLinkBar
+        theme={editor.theme}
+        initialLink={editorState.activeLink}
+        onBlur={() => setToolbarContext(ToolbarContext.Main)}
+        onLinkIconClick={() => {
+          setToolbarContext(ToolbarContext.Main);
+          editor.focus();
+        }}
+        onEditLink={(link) => {
+          editor.setLink(link);
+          editor.focus();
 
-            if (Platform.OS === 'android') {
-              // On android we dont want to hide the link input before we finished focus on editor
-              // Add here 100ms and we can try to find better solution later
-              setTimeout(() => {
-                setToolbarContext(ToolbarContext.Main);
-              }, 100);
-            } else {
+          if (Platform.OS === 'android') {
+            // On android we dont want to hide the link input before we finished focus on editor
+            // Add here 100ms and we can try to find better solution later
+            setTimeout(() => {
               setToolbarContext(ToolbarContext.Main);
-            }
-          }}
-        />
-      );
+            }, 100);
+          } else {
+            setToolbarContext(ToolbarContext.Main);
+          }
+        }}
+      />
+    );
   }
 }
