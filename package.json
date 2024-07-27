@@ -1,6 +1,6 @@
 {
   "name": "@uongsuadaubung/text-editor",
-  "version": "0.0.1",
+  "version": "0.5.2",
   "description": "Test Text Editor",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -44,18 +44,18 @@
     "editor:dev": "vite",
     "editor:build": "vite build && node ./scripts/buildEditor.js ./src/simpleWebEditor/build/index.html",
     "editor:build-web-utils": "rimraf lib-web && vite build --config ./src/webEditorUtils/vite.config.ts && tsc --project ./src/webEditorUtils",
-    "example": "yarn workspace tentap-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --fix \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "yarn run editor:build && bob build",
-    "release": "release-it --no-git"
+    "prepare": "bob build",
+    "release": "release-it --no-git",
+    "patch": "release-it patch --no-git"
   },
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://uongsuadaubung/10tap-editor.git"
+    "url": "https://uongsuadaubung/10tap-editor.git"
   },
   "author": "uongsuadaubung",
   "license": "MIT",
@@ -75,7 +75,7 @@
     "@types/jest": "^28.1.2",
     "@types/lodash": "^4.14.202",
     "@types/react": "~17.0.21",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-dom": "^18.2.0",
     "@types/react-native": "0.70.0",
     "@vitejs/plugin-react": "^4.2.1",
     "commitlint": "^17.0.2",
@@ -105,11 +105,7 @@
     "react-native": "*",
     "react-native-webview": "*"
   },
-  "workspaces": [
-    "example",
-    "website"
-  ],
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "npm@10.8.2+sha512.c7f0088c520a46596b85c6f8f1da943400199748a0f7ea8cb8df75469668dc26f6fb3ba26df87e2884a5ebe91557292d0f3db7d0929cdb4f14910c3032ac81fb",
   "engines": {
     "node": ">= 18.0.0"
   },
