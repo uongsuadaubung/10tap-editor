@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { Images } from '../../assets';
-import { EditorActionType } from '../../types';
+import { EditorActionType, type ToolbarTheme } from '../../types';
 import type { EditorBridge } from '../../types';
 import { type BridgeState } from '../../types';
 
@@ -42,6 +42,7 @@ export interface ToolbarItem {
   image: ({ editor, editorState }: ArgsToolbarCB) => any;
   context: ToolbarContext;
   title?: string;
+  iconStyle?: ToolbarTheme['icon'];
 }
 const Bold: ToolbarItem = {
   onPress:

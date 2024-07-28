@@ -44,7 +44,7 @@ export const defaultToolbarTheme: ToolbarTheme = {
   icon: {
     height: 28,
     width: 28,
-    tintColor: '#898989',
+    // tintColor: '#898989',
   },
   iconActive: {},
   linkBarTheme: {

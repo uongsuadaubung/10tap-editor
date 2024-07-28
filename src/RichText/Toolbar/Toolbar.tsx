@@ -52,22 +52,39 @@ export function Toolbar({
       return;
     }
     setTimeout(() => {
-      flatListRef.current!.scrollToIndex({ index: 0, animated: true });
+      flatListRef.current?.scrollToIndex({ index: 0, animated: true });
     }, 100);
   };
   const data = useMemo<ToolbarItem[]>(() => {
     const filteredItems = items.filter((i) => i.context === toolbarContext);
-    scrollToTop();
-    if (toolbarContext === ToolbarContext.Main) {
-      return filteredItems;
-    }
-    return [actions.Close, ...filteredItems];
-  }, [items, toolbarContext]);
-  // useEffect(() => {
-  //   scrollToTop();
-  // }, [data]);
 
-  if (toolbarContext !== ToolbarContext.Link) {
+    let finalItems: ToolbarItem[];
+    if (toolbarContext === ToolbarContext.Main) {
+      finalItems = filteredItems;
+    } else if (toolbarContext === ToolbarContext.Link) {
+      finalItems = [];
+    } else {
+      finalItems = [actions.Close, ...filteredItems];
+    }
+    if (finalItems.length > 0) {
+      scrollToTop();
+    }
+    return finalItems;
+  }, [items, toolbarContext]);
+
+  const isUseFlatList = useMemo<boolean>(() => {
+    return [
+      ToolbarContext.Main,
+      ToolbarContext.Close,
+      ToolbarContext.AI,
+      ToolbarContext.Color,
+      ToolbarContext.Image,
+      ToolbarContext.Heading,
+      ToolbarContext.Highlight,
+    ].includes(toolbarContext);
+  }, [toolbarContext]);
+
+  if (isUseFlatList) {
     return (
       <FlatList
         ref={flatListRef}
@@ -76,7 +93,9 @@ export function Toolbar({
           editor.theme.toolbar.toolbarBody,
           hideToolbar ? editor.theme.toolbar.hidden : undefined,
         ]}
-        renderItem={({ item: { onPress, disabled, active, image, title } }) => {
+        renderItem={({
+          item: { onPress, disabled, active, image, title, iconStyle },
+        }) => {
           return (
             <TouchableOpacity
               onPress={onPress(args)}
@@ -102,6 +121,7 @@ export function Toolbar({
                     disabled(args)
                       ? editor.theme.toolbar.iconDisabled
                       : undefined,
+                    iconStyle,
                   ]}
                   resizeMode="contain"
                 />
@@ -115,7 +135,7 @@ export function Toolbar({
         horizontal
       />
     );
-  } else {
+  } else if (toolbarContext === ToolbarContext.Link) {
     return (
       <EditLinkBar
         theme={editor.theme}
@@ -141,5 +161,7 @@ export function Toolbar({
         }}
       />
     );
+  } else {
+    return null;
   }
 }
