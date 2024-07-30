@@ -51,13 +51,14 @@ export const CodeBridge = new BridgeExtension<
     };
   },
   extendCSS: `
-    code {
-        background-color: #6161611a;
-        border-radius: 0.25em;
-        box-decoration-break: clone;
-        color: #616161;
-        font-size: 0.9rem;
-        padding: 0.25em;
-    }
+
   `,
 });
+//code {
+//         background-color: #6161611a;
+//         border-radius: 0.25em;
+//         box-decoration-break: clone;
+//         color: #616161;
+//         font-size: 0.9rem;
+//         padding: 0.25em;
+//     }

@@ -52,9 +52,11 @@ export const BlockquoteBridge = new BridgeExtension<
     };
   },
   extendCSS: `
-    blockquote {
-        border-left: 3px solid #0d0d0d1a;
-        padding-left: 1rem;
-    }
+
   `,
 });
+//
+//blockquote {
+//         border-left: 3px solid #0d0d0d1a;
+//         padding-left: 1rem;
+//     }
