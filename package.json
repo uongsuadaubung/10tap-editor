@@ -1,6 +1,6 @@
 {
   "name": "@uongsuadaubung/text-editor",
-  "version": "0.6.14",
+  "version": "0.6.37",
   "description": "Test Text Editor",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
